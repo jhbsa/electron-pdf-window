@@ -6940,7 +6940,11 @@ var pdfjsWebLibs;
             downloadManager.downloadUrl(url, filename);
           }
           var url = this.baseUrl;
-          var filename = getPDFFileNameFromURL(url);
+          // BEGIN MONEYTRAX MOD
+          // var filename = getPDFFileNameFromURL(url);
+          var self = this;
+          var filename = `${self.documentInfo['Title']}.pdf` || 'document.pdf';
+          // END MONEYTRAX MOD
           var downloadManager = this.downloadManager;
           downloadManager.onerror = function (err) {
             // This error won't really be helpful because it's likely the
@@ -7182,7 +7186,10 @@ var pdfjsWebLibs;
               pdfTitle = info['Title'];
             }
             if (pdfTitle) {
-              self.setTitle(pdfTitle + ' - ' + document.title);
+              // BEGIN MONEYTRAX MOD
+              // self.setTitle(pdfTitle + ' - ' + document.title);
+              self.setTitle(pdfTitle);
+              // END MONEYTRAX MOD
             }
             if (info.IsAcroFormPresent) {
               console.warn('Warning: AcroForm/XFA is not supported');
